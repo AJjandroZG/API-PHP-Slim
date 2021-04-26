@@ -72,15 +72,17 @@ class InventarioportiendaController{
             if (!isEmpty($inventario)) {
                 $res =  array(
                     'success' => true,
-                    'message' => "Actualización exitosa"
+                    'message' => "Datos completos",
+                    'data' => $inventario
                 );
                 return buildResponse($request, $response, 200, $res);
-            }else{
+            }else {
                 $res =  array(
-                    'success' => false,
-                    'message' => "Error database: no data"
+                    'success' => true,
+                    'empty' => true,
+                    'message' => "No hay datos"
                 );
-                return buildResponse($request, $response, 404);
+                return buildResponse($request, $response, 200, $res);
             }
         } catch (PDOException $e) {
             $res =  array(
