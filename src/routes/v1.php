@@ -8,7 +8,7 @@ $version = "/v1";
 // Instantiate App
 $app = AppFactory::create();
 // Add error middleware
-$app->addErrorMiddleware(false, true, true);
+$app->addErrorMiddleware(true, true, true);
 // allow CORS
 
 $app->add(function ($request, $handler) {
