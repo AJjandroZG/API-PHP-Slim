@@ -13,10 +13,18 @@ class db{
     }
     //conección 
     public function conectDB(){
-      $mysqlConnect = "mysql:host=$this->dbHost;dbname=$this->dbName";
-      $dbConnecion = new PDO($mysqlConnect, $this->dbUser, $this->dbPass);
-      $dbConnecion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      return $dbConnecion;
+      try {
+        $mysqlConnect = "mysql:host=$this->dbHost;dbname=$this->dbName";
+        $dbConnecion = new PDO($mysqlConnect, $this->dbUser, $this->dbPass);
+        $dbConnecion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $dbConnecion;
+      } catch (PDOException $e) {
+        $res =  array(
+          'success' => false,
+          'error' => $e->getMessage()
+        );
+        return buildResponse($request, $response, 500, $res);
+      }
     }
   }
 ?>
