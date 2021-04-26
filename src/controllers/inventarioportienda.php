@@ -68,7 +68,8 @@ class InventarioportiendaController{
         try {
             $body = json_decode($request->getBody());
             $this->model->getAll();
-            if($this->model->getSuccess()){
+            $inventario = $this->model->getData();
+            if (!isEmpty($inventario)) {
                 $res =  array(
                     'success' => true,
                     'message' => "Actualización exitosa"
