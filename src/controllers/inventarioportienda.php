@@ -10,7 +10,10 @@ class InventarioportiendaController{
     public function getInventaryByProduct($request, $response){
         try {
             $body = json_decode($request->getBody());
-            $this->model->filterByProduct($body->product);
+            $resDB = $this->model->filterByProduct($body->product);
+            if (!$resDB->success) {
+                return buildResponse($request, $response, 500, $resDB);
+            }
             $inventario = $this->model->getData();
             if (!isEmpty($inventario)) {
                 $res =  array(
@@ -40,7 +43,10 @@ class InventarioportiendaController{
     public function updateInventary($request, $response){
         try {
             $body = json_decode($request->getBody());
-            $this->model->updateInventary($body->value, $body->product, $body->store);
+            $resDB=$this->model->updateInventary($body->value, $body->product, $body->store);
+            if (!$resDB->success) {
+                return buildResponse($request, $response, 500, $resDB);
+            }
             if($this->model->getSuccess()){
                 $res =  array(
                     'success' => true,
@@ -67,7 +73,10 @@ class InventarioportiendaController{
     public function getAll($request, $response){
         try {
             $body = json_decode($request->getBody());
-            $this->model->getAll();
+            $resDB=$this->model->getAll();
+            if (!$resDB->success) {
+                return buildResponse($request, $response, 500, $resDB);
+            }
             $inventario = $this->model->getData();
             if (!isEmpty($inventario)) {
                 $res =  array(
