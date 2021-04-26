@@ -24,7 +24,7 @@ require __DIR__ . '/../models/inventarioportienda.php';
 require __DIR__ . '/../controllers/inventarioportienda.php';
 
 // routes
-$app->get($version.'/getAll', function(Request $request, Response $response){
+$app->post($version.'/getAll', function(Request $request, Response $response){
   $inventarioportienda = new InventarioportiendaController();
   return buildWithAuth(function($request, $response, $instance){
     return $instance->getAll($request, $response);
