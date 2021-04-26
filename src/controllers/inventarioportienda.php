@@ -11,7 +11,7 @@ class InventarioportiendaController{
         try {
             $body = json_decode($request->getBody());
             $resDB = $this->model->filterByProduct($body->product);
-            if (!$resDB->success) {
+            if (!$resDB['success']) {
                 return buildResponse($request, $response, 500, $resDB);
             }
             $inventario = $this->model->getData();
@@ -44,7 +44,7 @@ class InventarioportiendaController{
         try {
             $body = json_decode($request->getBody());
             $resDB=$this->model->updateInventary($body->value, $body->product, $body->store);
-            if (!$resDB->success) {
+            if (!$resDB['success']) {
                 return buildResponse($request, $response, 500, $resDB);
             }
             if($this->model->getSuccess()){
@@ -74,7 +74,7 @@ class InventarioportiendaController{
         try {
             $body = json_decode($request->getBody());
             $resDB=$this->model->getAll();
-            if (!$resDB->success) {
+            if (!$resDB['success']) {
                 return buildResponse($request, $response, 500, $resDB);
             }
             $inventario = $this->model->getData();

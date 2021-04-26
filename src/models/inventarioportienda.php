@@ -10,7 +10,7 @@ class Inventarioportienda{
         $this->data = null;
     }
 
-    public function filterByProduct($product, $request, $response){
+    public function filterByProduct($product){
         try {
             // consulta a la base
             $sql = "SELECT id_tienda, cantidad_existente, cantidad_inicial FROM inventarioportienda 
@@ -18,6 +18,10 @@ class Inventarioportienda{
             // respuesta del modelo
             $resultado = $this->conexion->query($sql);
             $this->data = responseModels($resultado);
+            $res =  array(
+                'success' => true
+            );
+            return $res;
         } catch (PDOException $e) {
             $res =  array(
                 'success' => false,
@@ -27,13 +31,17 @@ class Inventarioportienda{
         }
     }
 
-    public function getAll($request, $response){
+    public function getAll(){
         try {
             // consulta a la base
             $sql = "SELECT * FROM inventarioportienda;";
             // respuesta del modelo
             $resultado = $this->conexion->query($sql);
             $this->data = responseModels($resultado);
+            $res =  array(
+                'success' => true
+            );
+            return $res;
         } catch (PDOException $e) {
             $res =  array(
                 'success' => false,
@@ -43,7 +51,7 @@ class Inventarioportienda{
         }
     }
 
-    public function updateInventary($value, $product, $store, $request, $response){
+    public function updateInventary($value, $product, $store){
         try {
             // consulta a la base
             $sql = "UPDATE inventarioportienda
@@ -52,6 +60,10 @@ class Inventarioportienda{
             // respuesta del modelo
             $resultado = $this->conexion->query($sql);
             $this->success = $resultado->queryString == $sql;
+            $res =  array(
+                'success' => true
+            );
+            return $res;
         } catch (PDOException $e) {
             $res =  array(
                 'success' => false,
