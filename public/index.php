@@ -2,7 +2,7 @@
 // Librarie
 require __DIR__ . '/../vendor/autoload.php';
 // Load ENV
-$dotenv = Dotenv\Dotenv::createImmutable('../');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 // Project
 require __DIR__ . '/../src/config/index.php';
