@@ -63,5 +63,32 @@ class InventarioportiendaController{
 
         }
     }
+
+    public function getAll($request, $response){
+        try {
+            $body = json_decode($request->getBody());
+            $this->model->getAll();
+            if($this->model->getSuccess()){
+                $res =  array(
+                    'success' => true,
+                    'message' => "Actualización exitosa"
+                );
+                return buildResponse($request, $response, 200, $res);
+            }else{
+                $res =  array(
+                    'success' => false,
+                    'message' => "Error database: no data"
+                );
+                return buildResponse($request, $response, 404);
+            }
+        } catch (PDOException $e) {
+            $res =  array(
+                'success' => false,
+                'error' => $e->getMessage()
+            );
+            return buildResponse($request, $response, 500, $res);
+
+        }
+    }
 }
 ?>

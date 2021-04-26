@@ -8,7 +8,7 @@ $version = "/v1";
 // Instantiate App
 $app = AppFactory::create();
 // Add error middleware
-$app->addErrorMiddleware(true, true, true);
+$app->addErrorMiddleware(false, true, true);
 // allow CORS
 
 $app->add(function ($request, $handler) {
@@ -24,6 +24,13 @@ require __DIR__ . '/../models/inventarioportienda.php';
 require __DIR__ . '/../controllers/inventarioportienda.php';
 
 // routes
+$app->get($version.'/getAll', function(Request $request, Response $response){
+  $inventarioportienda = new InventarioportiendaController();
+  return buildWithAuth(function($request, $response, $instance){
+    return $instance->getAll($request, $response);
+  }, $request, $response, $inventarioportienda);
+});
+
 $app->post($version.'/getInventaryByProduct', function(Request $request, Response $response){
     $inventarioportienda = new InventarioportiendaController();
     return buildWithAuth(function($request, $response, $instance){

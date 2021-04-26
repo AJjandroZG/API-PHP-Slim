@@ -19,6 +19,14 @@ class Inventarioportienda{
         $this->data = responseModels($resultado);
     }
 
+    public function getAll(){
+        // consulta a la base
+        $sql = "SELECT * FROM inventarioportienda;";
+        // respuesta del modelo
+        $resultado = $this->conexion->query($sql);
+        $this->data = responseModels($resultado);
+    }
+
     public function updateInventary($value, $product, $store){
         // consulta a la base
         $sql = "UPDATE inventarioportienda
