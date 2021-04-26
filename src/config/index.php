@@ -19,11 +19,6 @@ class db{
         $dbConnecion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $dbConnecion;
       } catch (PDOException $e) {
-        $res =  array(
-          'success' => false,
-          'error' => $e->getMessage()
-        );
-        return buildResponse($request, $response, 500, $res);
       }
     }
   }
