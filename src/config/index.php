@@ -13,10 +13,23 @@ class db{
     }
     //conección 
     public function conectDB(){
+      try {
         $mysqlConnect = "mysql:host=$this->dbHost;dbname=$this->dbName";
         $dbConnecion = new PDO($mysqlConnect, $this->dbUser, $this->dbPass);
         $dbConnecion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $dbConnecion;
+        $res =  array(
+          'success' => true,
+          'instance' => $dbConnecion
+      );
+        return $res;
+      } catch (PDOException $e) {
+        $res =  array(
+            'success' => false,
+            'error' => $e->getMessage()
+        );
+        return $res;
+
+    }
     }
   }
 ?>
