@@ -22,7 +22,7 @@ $app->add(function ($request, $handler) {
 // Controlls and Models
 require __DIR__ . '/../models/inventarioportienda.php';
 require __DIR__ . '/../controllers/inventarioportienda.php';
-// generate apiKey
+// generate apiKey 
 $app->post($version.'/generateApiKey', function(Request $request, Response $response){
   $body = json_decode($request->getBody());
   return encryptObj($body, $request, $response);
