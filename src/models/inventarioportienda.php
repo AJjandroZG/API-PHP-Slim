@@ -11,7 +11,7 @@ class Inventarioportienda{
         $conexion=$db->conectDB();
         if (!$conexion['success']) {
             $this->errorConexion = true;
-            $this->conexion = $conexion['error'];
+            $this->conexion = $conexion;
         } else {
             $this->errorConexion = false;
             $this->conexion = $conexion['instance'];
