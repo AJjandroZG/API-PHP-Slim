@@ -1,8 +1,14 @@
 <?php
 
 function buildWithAuth($callback, $request, $response, $instance) {
-    $body = json_decode($request->getBody());
-    $auth= decrypt($body->apiKey);
+    $auth;
+    if ($request->getMethod() == "GET") {
+        $auth= decrypt($request->getQueryParam('apiKey'));
+    }else{
+        $body = json_decode($request->getBody());
+        $auth= decrypt($body->apiKey);
+    }
+    //var_dump($auth);
     if (authentication($auth)) {
         return $callback($request, $response, $instance);
     } else {
@@ -18,6 +24,9 @@ function buildWithoutAuth($callback, $request, $response, $instance) {
 function authentication($credencial){
     if ($credencial) {
         $credencial = json_decode($credencial);
+        // código de consulta a la base de datos si usara una autenticación para varios usuarios
+            // ...code#
+        //END
         if (
             $credencial->user == $_ENV['USER_DEFAULT'] && 
             $credencial->password == $_ENV['PASSWORD_DEFAULT']

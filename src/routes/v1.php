@@ -22,9 +22,14 @@ $app->add(function ($request, $handler) {
 // Controlls and Models
 require __DIR__ . '/../models/inventarioportienda.php';
 require __DIR__ . '/../controllers/inventarioportienda.php';
+// generate apiKey
+$app->post($version.'/generateApiKey', function(Request $request, Response $response){
+  $body = json_decode($request->getBody());
+  return encryptObj($body, $request, $response);
+});
 
 // routes
-$app->post($version.'/getAll', function(Request $request, Response $response){
+$app->get($version.'/getAll', function(Request $request, Response $response){
   $inventarioportienda = new InventarioportiendaController();
   return buildWithAuth(function($request, $response, $instance){
     return $instance->getAll($request, $response);
